@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tình hình sử dụng Base – Vinaconex</title>
+<meta name="description" content="Báo cáo tình hình sử dụng 4 app Task, BPM, E-office, Booking theo người dùng và theo Ban tại Vinaconex.">
+</head>
+<body>
+<div class="vx-page">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap');
+/* HTML for Base — tokens (light) */
+.vx{
+  --bg:#f6f8fb;--panel:#ffffff;--soft:#f0f3f8;--line:#e2e7ef;--ink:#16202f;--muted:#5b6678;
+  --brand:#1e88e5;--brand-s:#e3f0fc;--on-brand:#ffffff;
+  --ev:#1e88e5;--ev-s:#e6f1fc;--po:#d97706;--po-s:#fdf1e1;--fd:#475569;--fd-s:#eef1f5;
+  --app:#7c3aed;--app-s:#f2ecfe;--core:#0e9f6e;--core-s:#e4f6ee;--cyan:#0891b2;
+  --danger:#e11d48;--danger-s:#ffe4e6;--danger-ink:#be123c;
+  --shadow:0 1px 2px rgba(16,24,40,.05),0 6px 20px rgba(16,24,40,.05);
+  --c-task:var(--ev);--c-bpm:var(--po);--c-eo:var(--app);--c-bk:var(--cyan);
+  --sans:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .vx{
+  --bg:#0d121c;--panel:#151c2a;--soft:#1b2436;--line:#26314a;--ink:#e7ecf4;--muted:#9aa6ba;
+  --brand:#5aa9f0;--brand-s:#16263d;--ev:#5aa9f0;--ev-s:#152740;--po:#f0a23b;--po-s:#2d2212;--fd:#a3b1c6;--fd-s:#1d2535;
+  --app:#a78bfa;--app-s:#241c3d;--core:#34d399;--core-s:#10291f;--danger-s:#4c0519;--danger-ink:#fda4af;--shadow:none}}
+:root[data-theme="dark"] .vx{
+  --bg:#0d121c;--panel:#151c2a;--soft:#1b2436;--line:#26314a;--ink:#e7ecf4;--muted:#9aa6ba;
+  --brand:#5aa9f0;--brand-s:#16263d;--ev:#5aa9f0;--ev-s:#152740;--po:#f0a23b;--po-s:#2d2212;--fd:#a3b1c6;--fd-s:#1d2535;
+  --app:#a78bfa;--app-s:#241c3d;--core:#34d399;--core-s:#10291f;--danger-s:#4c0519;--danger-ink:#fda4af;--shadow:none}
+
+.vx{font-family:var(--sans);color:var(--ink);font-size:15px;line-height:1.62;display:flex;flex-direction:column;gap:14px;max-width:1440px;margin-inline:auto}
+.vx *{box-sizing:border-box}
+.vx a{color:var(--brand)}
+/* hero */
+.vx-hero{border-radius:20px;border:1px solid var(--line);background:linear-gradient(135deg,var(--brand-s),var(--panel) 70%);padding:30px 32px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow)}
+.vx-eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand)}
+.vx-hero h1{font-size:36px;line-height:1.2;font-weight:800;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.vx-lead{color:var(--muted);max-width:920px;margin:0}
+.vx-lead b{color:var(--ink);font-weight:700}
+.vx-hint{font-size:12.5px;color:var(--muted)}
+.vx-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,10.5rem),1fr));gap:12px;margin-top:6px}
+.vx-tile{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--vx-c,var(--brand));border-radius:12px;padding:10px 14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.vx-tile .vx-lbl{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.vx-tile .vx-big{font-size:26px;line-height:1.2;font-weight:700;font-variant-numeric:tabular-nums}
+.vx-tile .vx-sub{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.vx-meter{height:6px;border-radius:99px;background:var(--soft);overflow:hidden}
+.vx-meter>i{display:block;height:100%;border-radius:99px;background:var(--vx-c,var(--brand))}
+/* sections */
+.vx-sec{display:flex;flex-direction:column;gap:12px;margin-top:42px}
+.vx h2{display:flex;align-items:center;gap:12px;font-size:25px;line-height:1.3;font-weight:800;margin:0;text-wrap:balance}
+.vx .sn{flex:none;width:34px;height:34px;border-radius:10px;background:var(--brand);color:var(--on-brand);display:inline-flex;align-items:center;justify-content:center;font-size:16px;font-weight:800}
+.vx h3{font-size:15px;font-weight:700;margin:0}
+.vx-note{color:var(--muted);font-size:12.5px;margin:0}
+.vx-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;min-width:0;font-size:14px}
+.vx-card.vx-top{border-top:4px solid var(--vx-c,var(--brand))}
+.vx-grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:12px}
+.vx-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted)}
+.vx-legend span{display:inline-flex;align-items:center;gap:6px;font-variant-numeric:tabular-nums}
+.vx-legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.vx-stack{display:flex;height:28px;border-radius:10px;overflow:hidden;gap:2px}
+.vx-stack>div{min-width:2px}
+.vx-bars{display:flex;flex-direction:column;gap:6px}
+.vx-bars+.vx-bars{padding-top:8px;border-top:1px solid var(--line)}
+.vx-bar{display:grid;grid-template-columns:minmax(0,11rem) 1fr 2.6rem;align-items:center;gap:8px;font-size:13.5px}
+.vx-bar .vx-bl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vx-bar .vx-bt{height:12px;background:var(--soft);border-radius:99px;overflow:hidden}
+.vx-bar .vx-bt>i{display:block;height:100%;border-radius:99px}
+.vx-bar .vx-bv{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.vx-flag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;padding:2px 10px;border-radius:99px;background:var(--danger-s);color:var(--danger-ink);width:fit-content}
+/* table */
+.vx-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:8px}
+.vx-tablewrap{overflow:auto;max-height:34rem;border:1px solid var(--line);border-radius:12px}
+.vx-table{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums}
+.vx-table th{position:sticky;top:0;background:var(--soft);text-align:right;font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap;z-index:1}
+.vx-table th:first-child,.vx-table td:first-child{text-align:left}
+.vx-table th button{all:unset;cursor:pointer}
+.vx-table th button:focus-visible,.vx-search:focus-visible,.vx-golink:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.vx-table th[aria-sort] button::after{content:" ▾";color:var(--brand)}
+.vx-table th[aria-sort=ascending] button::after{content:" ▴"}
+.vx-table td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.vx-table tbody tr:hover td{background:var(--soft)}
+.vx-table td:first-child{white-space:normal;min-width:12rem;font-weight:600}
+.vx-heat{border-radius:5px}
+.vx-vol{display:flex;align-items:center;gap:6px;justify-content:flex-end}
+.vx-vol>i{display:inline-block;height:8px;border-radius:99px;background:var(--vx-c)}
+.vx-search{font:inherit;font-size:13.5px;padding:6px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);max-width:18rem}
+/* coverage chart */
+.vx-cov{position:relative;min-height:200px}
+.vx-cov svg text{fill:var(--muted);font-size:12.5px;font-family:var(--sans)}
+.vx-tip{position:absolute;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:6px 10px;font-size:12.5px;pointer-events:none;white-space:nowrap;color:var(--ink)}
+.vx-tip .vx-tk{color:var(--muted);font-weight:600}
+/* note + goto */
+.vx-notebox{background:var(--po-s);border:1px solid var(--line);border-left:4px solid var(--po);border-radius:12px;padding:14px 16px;font-size:14px}
+.vx-list{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:6px;max-width:920px}
+.vx-list b{font-weight:700}
+.vx-goto{display:flex;flex-wrap:wrap;align-items:center;gap:8px;background:var(--brand-s);border-radius:8px;padding:8px 12px;font-size:13.5px}
+.vx-goto>span{font-weight:700}
+.vx-golink{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--brand);font-weight:600;text-decoration:none}
+.vx-golink:hover{background:var(--brand-s);border-color:var(--brand)}
+.vx-fail{display:flex;align-items:center;justify-content:center;gap:6px;color:var(--muted);font-size:12.5px;min-height:inherit}
+.vx-fail i{width:.375rem;height:.375rem;border-radius:50%;background:var(--danger)}
+[data-dash-source-state=empty]{color:transparent}
+[data-dash-source-state=refreshing]{opacity:.5;transition:opacity var(--cds-dur-slow)}
+@media (max-width:980px){.vx-hero{padding:22px 18px}.vx-hero h1{font-size:27px}.vx h2{font-size:21px}}
+
+html,body{margin:0;background:#f6f8fb}
+@media (prefers-color-scheme: dark){html,body{background:#0d121c}}
+.vx-page{padding:30px max(16px,env(safe-area-inset-right,0px)) 90px max(16px,env(safe-area-inset-left,0px))}
+@media (min-width:980px){.vx-page{padding-left:40px;padding-right:40px}}
+.vx-foot{margin-top:28px;color:var(--muted);font-size:12.5px}
+</style>
+
+<div class="vx">
+  <header class="vx-hero" id="top">
+    <div class="vx-eyebrow">Báo cáo sử dụng · Base Vinaconex</div>
+    <h1>Tình hình sử dụng Base tại Vinaconex</h1>
+    <p class="vx-lead" id="takeaway">
+      <b data-source="kpi" data-field="active" data-where="app=Tổng">—</b> trên
+      <b data-source="kpi" data-field="total" data-where="app=Tổng">—</b> user đã dùng ít nhất một app
+      (<b data-source="kpi" data-field="pct" data-where="app=Tổng">—</b>%).
+      Task được dùng rộng nhất với <b data-source="kpi" data-field="active" data-where="app=Task">—</b> user,
+      E-office mới có <b data-source="kpi" data-field="active" data-where="app=E-office">—</b> user.
+      Ban Xây dựng và Văn phòng Tổng công ty tạo ra nhiều lượt tác nghiệp nhất; một số Ban chưa có ai sử dụng.
+    </p>
+    <div class="vx-kpis" id="kpis">
+      <div class="vx-tile" data-app="Tổng"></div>
+      <div class="vx-tile" data-app="Task"></div>
+      <div class="vx-tile" data-app="BPM"></div>
+      <div class="vx-tile" data-app="E-office"></div>
+      <div class="vx-tile" data-app="Booking"></div>
+    </div>
+    <div class="vx-hint">Quét lúc 10:50 ngày 16/10/2026 · đã loại dữ liệu test · mẫu số 244 user thực (không tính tài khoản test, tài khoản Base, tài khoản đã khoá).</div>
+  </header>
+
+  <section class="vx-sec" id="levels">
+    <h2><span class="sn">1</span>Mức độ sử dụng của người dùng</h2>
+    <div class="vx-card">
+      <p class="vx-note">Số app mỗi user đã dùng trong 4 app. "Đã dùng": Task – tạo hoặc hoàn thành ≥1 việc; BPM – tạo phiếu hoặc xử lý/duyệt ≥1 bước; E-office – tạo văn bản hoặc có ≥1 thao tác; Booking – đặt ≥1 lượt.</p>
+      <div class="vx-legend" id="levelLegend" data-source="breakdown"></div>
+      <div class="vx-stack" id="levelBar" data-source="breakdown"></div>
+    </div>
+  </section>
+
+  <section class="vx-sec" id="by-ban">
+    <h2><span class="sn">2</span>Theo Ban / đơn vị</h2>
+    <div class="vx-card">
+      <h3>Độ phủ người dùng theo Ban</h3>
+      <div class="vx-legend"><span><i style="background:var(--core)"></i>Đã dùng ≥1 app</span><span><i style="background:var(--soft);border:1px solid var(--line)"></i>Chưa dùng</span></div>
+      <div class="vx-cov" id="covChart" data-source="ban"></div>
+    </div>
+    <div class="vx-card">
+      <div class="vx-head">
+        <div><h3>Tỷ lệ user dùng từng app và khối lượng tác nghiệp</h3>
+        <p class="vx-note">Ô càng đậm, tỷ lệ user của Ban dùng app đó càng cao. Bấm tiêu đề cột để sắp xếp.</p></div>
+        <input class="vx-search" id="banSearch" type="search" placeholder="Tìm Ban…" aria-label="Tìm Ban">
+      </div>
+      <div class="vx-legend"><span><i style="background:var(--core)"></i>Đã dùng (chung)</span><span><i style="background:var(--c-task)"></i>Task</span><span><i style="background:var(--c-bpm)"></i>BPM</span><span><i style="background:var(--c-eo)"></i>E-office</span><span><i style="background:var(--c-bk)"></i>Booking</span></div>
+      <div class="vx-tablewrap">
+        <table class="vx-table" id="banTable" data-source="ban ban_pct" data-row-key="ban">
+          <thead><tr>
+            <th data-field="ban" data-k="ban"><button>Ban / đơn vị</button></th>
+            <th data-field="users" data-k="users"><button>Số user</button></th>
+            <th data-source="ban_pct" data-field="pct_active" data-k="pct_active"><button>% đã dùng</button></th>
+            <th data-source="ban_pct" data-field="pct_task" data-k="pct_task"><button>% Task</button></th>
+            <th data-source="ban_pct" data-field="pct_bpm" data-k="pct_bpm"><button>% BPM</button></th>
+            <th data-source="ban_pct" data-field="pct_eoffice" data-k="pct_eoffice"><button>% E-office</button></th>
+            <th data-source="ban_pct" data-field="pct_booking" data-k="pct_booking"><button>% Booking</button></th>
+            <th data-field="task_created" data-k="task_created"><button>Task tạo</button></th>
+            <th data-field="task_overdue" data-k="task_overdue"><button>Task quá hạn</button></th>
+            <th data-field="bpm_created" data-k="bpm_created"><button>Phiếu BPM</button></th>
+            <th data-field="bpm_actions" data-k="bpm_actions"><button>Lượt duyệt BPM</button></th>
+            <th data-field="eo_actions" data-k="eo_actions"><button>Thao tác E-office</button></th>
+            <th data-field="booking" data-k="booking"><button>Lượt Booking</button></th>
+            <th data-field="volume" data-k="volume" aria-sort="descending"><button>Tổng lượt</button></th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="vx-sec" id="by-app">
+    <h2><span class="sn">3</span>Theo ứng dụng</h2>
+    <div class="vx-grid2">
+      <div class="vx-card vx-top" id="app-task" style="--vx-c:var(--c-task)">
+        <h3>Task – trạng thái công việc</h3>
+        <p class="vx-note">Công việc thật đã tạo trên Task.</p>
+        <div class="vx-bars" data-group="task_status" data-source="breakdown" data-color="--c-task"></div>
+        <div class="vx-flag"><span data-source="breakdown" data-field="n" data-where="group=task_flags&amp;label=Quá hạn">—</span>&nbsp;việc đã quá hạn chót</div>
+      </div>
+      <div class="vx-card vx-top" id="app-bpm" style="--vx-c:var(--c-bpm)">
+        <h3>BPM – phiếu theo trạng thái và quy trình</h3>
+        <p class="vx-note">Phần lớn phiếu vẫn đang chạy, rất ít phiếu đi hết luồng.</p>
+        <div class="vx-bars" data-group="bpm_status" data-source="breakdown" data-color="--c-bpm"></div>
+        <div class="vx-bars" data-group="bpm_process" data-source="breakdown" data-color="--fd"></div>
+      </div>
+      <div class="vx-card vx-top" id="app-eoffice" style="--vx-c:var(--c-eo)">
+        <h3>E-office – văn bản và thao tác</h3>
+        <p class="vx-note">Sổ "VPTCT – Công văn đến/đi"; thao tác tập trung ở văn thư VP TCT và IT.</p>
+        <div class="vx-bars" data-group="eo_type" data-source="breakdown" data-color="--c-eo"></div>
+        <div class="vx-bars" data-group="eo_action" data-source="breakdown" data-color="--fd"></div>
+      </div>
+      <div class="vx-card vx-top" id="app-booking" style="--vx-c:var(--c-bk)">
+        <h3>Booking – lượt đặt xe và phòng họp</h3>
+        <p class="vx-note">Gồm cả lượt chờ duyệt, từ chối và huỷ.</p>
+        <div class="vx-bars" data-group="booking_type" data-source="breakdown" data-color="--c-bk"></div>
+        <div class="vx-bars" data-group="booking_status" data-source="breakdown" data-color="--fd"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="vx-sec" id="top-users">
+    <h2><span class="sn">4</span>15 người dùng tích cực nhất</h2>
+    <div class="vx-card">
+      <p class="vx-note">Tổng lượt tác nghiệp trên cả 4 app. Danh sách đầy đủ 244 user ở tab "Tổng hợp User" của Google Sheet.</p>
+      <div class="vx-tablewrap">
+        <table class="vx-table" id="topTable" data-source="top_users" data-row-key="user">
+          <thead><tr>
+            <th data-field="user">Người dùng</th><th data-field="ban">Ban</th><th data-field="task">Task</th><th data-field="bpm">BPM</th><th data-field="eoffice">E-office</th><th data-field="booking">Booking</th><th data-field="apps">Số app</th><th data-field="volume">Tổng lượt</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="vx-goto" style="margin-top:42px"><span>Làm theo:</span><a class="vx-golink" href="https://docs.google.com/spreadsheets/d/1CDuugjQ_8D03ud5yRqDC4EOTjBeP6LpNOaPAXmxzhas/edit" target="_blank" rel="noopener">↗ Google Sheet dữ liệu chi tiết</a><span class="vx-note" style="font-weight:400">9 tab: tổng hợp Ban, tổng hợp User, dữ liệu thô từng app, ghi chú phương pháp</span></div>
+  <p class="vx-foot">Số liệu quét từ Base (task, bpm, eoffice, bookings) lúc 10:50 ngày 16/10/2026, đã loại dữ liệu test. Thực hiện: Base Enterprise.</p>
+</div>
+
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+window.dash = (() => {
+  const DATA = {"ban": [{"ban": "Ban Xây dựng", "users": 59, "users_active": 23, "users_task": 10, "users_bpm": 16, "users_eoffice": 0, "users_booking": 13, "users_3apps": 3, "task_created": 15, "task_done": 6, "task_open": 7, "task_overdue": 4, "bpm_created": 39, "bpm_actions": 95, "eo_docs": 0, "eo_actions": 0, "booking": 21, "volume": 176}, {"ban": "Văn phòng Tổng công ty", "users": 50, "users_active": 12, "users_task": 4, "users_bpm": 8, "users_eoffice": 4, "users_booking": 3, "users_3apps": 3, "task_created": 34, "task_done": 31, "task_open": 9, "task_overdue": 4, "bpm_created": 7, "bpm_actions": 5, "eo_docs": 7, "eo_actions": 62, "booking": 19, "volume": 165}, {"ban": "Tiểu ban Thư ký tổng hợp", "users": 8, "users_active": 6, "users_task": 6, "users_bpm": 1, "users_eoffice": 1, "users_booking": 2, "users_3apps": 2, "task_created": 46, "task_done": 31, "task_open": 7, "task_overdue": 2, "bpm_created": 5, "bpm_actions": 2, "eo_docs": 0, "eo_actions": 1, "booking": 3, "volume": 88}, {"ban": "Chưa gán Ban/Phòng", "users": 10, "users_active": 3, "users_task": 2, "users_bpm": 3, "users_eoffice": 1, "users_booking": 3, "users_3apps": 2, "task_created": 3, "task_done": 1, "task_open": 0, "task_overdue": 0, "bpm_created": 3, "bpm_actions": 1, "eo_docs": 8, "eo_actions": 47, "booking": 4, "volume": 67}, {"ban": "Ban Đối ngoại Pháp chế", "users": 7, "users_active": 5, "users_task": 4, "users_bpm": 2, "users_eoffice": 0, "users_booking": 1, "users_3apps": 0, "task_created": 25, "task_done": 13, "task_open": 11, "task_overdue": 0, "bpm_created": 3, "bpm_actions": 12, "eo_docs": 0, "eo_actions": 0, "booking": 1, "volume": 54}, {"ban": "Ban PR", "users": 9, "users_active": 7, "users_task": 7, "users_bpm": 0, "users_eoffice": 0, "users_booking": 1, "users_3apps": 0, "task_created": 22, "task_done": 15, "task_open": 5, "task_overdue": 4, "bpm_created": 0, "bpm_actions": 0, "eo_docs": 0, "eo_actions": 0, "booking": 1, "volume": 38}, {"ban": "Ban Quản lý Giá và Hợp đồng", "users": 15, "users_active": 7, "users_task": 7, "users_bpm": 2, "users_eoffice": 0, "users_booking": 2, "users_3apps": 2, "task_created": 20, "task_done": 6, "task_open": 14, "task_overdue": 6, "bpm_created": 4, "bpm_actions": 5, "eo_docs": 0, "eo_actions": 0, "booking": 2, "volume": 37}, {"ban": "Ban Đầu tư", "users": 25, "users_active": 11, "users_task": 6, "users_bpm": 0, "users_eoffice": 0, "users_booking": 6, "users_3apps": 0, "task_created": 5, "task_done": 3, "task_open": 1, "task_overdue": 0, "bpm_created": 0, "bpm_actions": 0, "eo_docs": 0, "eo_actions": 0, "booking": 12, "volume": 20}, {"ban": "Ban QL và giám sát đầu tư tài chính", "users": 4, "users_active": 3, "users_task": 2, "users_bpm": 1, "users_eoffice": 0, "users_booking": 0, "users_3apps": 0, "task_created": 9, "task_done": 3, "task_open": 6, "task_overdue": 3, "bpm_created": 1, "bpm_actions": 1, "eo_docs": 0, "eo_actions": 0, "booking": 0, "volume": 14}, {"ban": "Ban Kiểm soát", "users": 1, "users_active": 1, "users_task": 1, "users_bpm": 1, "users_eoffice": 0, "users_booking": 1, "users_3apps": 1, "task_created": 5, "task_done": 2, "task_open": 3, "task_overdue": 0, "bpm_created": 2, "bpm_actions": 2, "eo_docs": 0, "eo_actions": 0, "booking": 2, "volume": 13}, {"ban": "Ban Phát triển nguồn nhân lực", "users": 6, "users_active": 3, "users_task": 1, "users_bpm": 0, "users_eoffice": 0, "users_booking": 2, "users_3apps": 0, "task_created": 8, "task_done": 0, "task_open": 6, "task_overdue": 5, "bpm_created": 0, "bpm_actions": 0, "eo_docs": 0, "eo_actions": 0, "booking": 2, "volume": 10}, {"ban": "Ban Kiểm toán nội bộ", "users": 2, "users_active": 1, "users_task": 1, "users_bpm": 1, "users_eoffice": 1, "users_booking": 0, "users_3apps": 1, "task_created": 2, "task_done": 0, "task_open": 2, "task_overdue": 0, "bpm_created": 0, "bpm_actions": 4, "eo_docs": 1, "eo_actions": 1, "booking": 0, "volume": 8}, {"ban": "Ban QLDA 3", "users": 2, "users_active": 1, "users_task": 1, "users_bpm": 1, "users_eoffice": 0, "users_booking": 1, "users_3apps": 1, "task_created": 1, "task_done": 0, "task_open": 0, "task_overdue": 0, "bpm_created": 2, "bpm_actions": 2, "eo_docs": 0, "eo_actions": 0, "booking": 1, "volume": 6}, {"ban": "Ban QL các dự án trọng điểm", "users": 12, "users_active": 3, "users_task": 3, "users_bpm": 0, "users_eoffice": 0, "users_booking": 1, "users_3apps": 0, "task_created": 3, "task_done": 1, "task_open": 2, "task_overdue": 2, "bpm_created": 0, "bpm_actions": 0, "eo_docs": 0, "eo_actions": 0, "booking": 1, "volume": 5}, {"ban": "Ban QLDA 1", "users": 3, "users_active": 1, "users_task": 0, "users_bpm": 0, "users_eoffice": 0, "users_booking": 1, "users_3apps": 0, "task_created": 0, "task_done": 0, "task_open": 0, "task_overdue": 0, "bpm_created": 0, "bpm_actions": 0, "eo_docs": 0, "eo_actions": 0, "booking": 2, "volume": 2}, {"ban": "Lãnh đạo TCT (HĐQT/BĐH)", "users": 8, "users_active": 2, "users_task": 1, "users_bpm": 0, "users_eoffice": 1, "users_booking": 0, "users_3apps": 0, "task_created": 0, "task_done": 1, "task_open": 0, "task_overdue": 0, "bpm_created": 0, "bpm_actions": 0, "eo_docs": 1, "eo_actions": 0, "booking": 0, "volume": 2}, {"ban": "Ban QLDA ĐT Đông Bắc", "users": 7, "users_active": 1, "users_task": 0, "users_bpm": 1, "users_eoffice": 0, "users_booking": 0, "users_3apps": 0, "task_created": 0, "task_done": 0, "task_open": 0, "task_overdue": 0, "bpm_created": 1, "bpm_actions": 0, "eo_docs": 0, "eo_actions": 0, "booking": 0, "volume": 1}, {"ban": "Ban Tài chính Kế hoạch", "users": 9, "users_active": 1, "users_task": 0, "users_bpm": 0, "users_eoffice": 0, "users_booking": 1, "users_3apps": 0, "task_created": 0, "task_done": 0, "task_open": 0, "task_overdue": 0, "bpm_created": 0, "bpm_actions": 0, "eo_docs": 0, "eo_actions": 0, "booking": 1, "volume": 1}, {"ban": "Ban QLDA Thăng Long", "users": 2, "users_active": 0, "users_task": 0, "users_bpm": 0, "users_eoffice": 0, "users_booking": 0, "users_3apps": 0, "task_created": 0, "task_done": 0, "task_open": 0, "task_overdue": 0, "bpm_created": 0, "bpm_actions": 0, "eo_docs": 0, "eo_actions": 0, "booking": 0, "volume": 0}, {"ban": "BQL Dự án KCN Đông Anh", "users": 1, "users_active": 0, "users_task": 0, "users_bpm": 0, "users_eoffice": 0, "users_booking": 0, "users_3apps": 0, "task_created": 0, "task_done": 0, "task_open": 0, "task_overdue": 0, "bpm_created": 0, "bpm_actions": 0, "eo_docs": 0, "eo_actions": 0, "booking": 0, "volume": 0}, {"ban": "Tổ công tác Ban điều hành", "users": 4, "users_active": 0, "users_task": 0, "users_bpm": 0, "users_eoffice": 0, "users_booking": 0, "users_3apps": 0, "task_created": 0, "task_done": 0, "task_open": 0, "task_overdue": 0, "bpm_created": 0, "bpm_actions": 0, "eo_docs": 0, "eo_actions": 0, "booking": 0, "volume": 0}], "top_users": [{"user": "IT Vinaconex", "ban": "Chưa gán Ban/Phòng", "title": "Tài khoản quản trị IT", "task": 3, "bpm": 1, "eoffice": 55, "booking": 1, "volume": 60, "apps": 4}, {"user": "Trần Công Hoàng Tuệ", "ban": "Văn phòng Tổng công ty", "title": "Trưởng phòng CNTT", "task": 14, "bpm": 0, "eoffice": 27, "booking": 8, "volume": 49, "apps": 3}, {"user": "Nguyễn Thạch Tú", "ban": "Văn phòng Tổng công ty", "title": "Chuyên viên", "task": 46, "bpm": 2, "eoffice": 0, "booking": 0, "volume": 48, "apps": 2}, {"user": "Nguyễn Thị Thu Huyền", "ban": "Văn phòng Tổng công ty", "title": "Chuyên viên", "task": 0, "bpm": 0, "eoffice": 36, "booking": 0, "volume": 36, "apps": 1}, {"user": "Đinh Nguyễn Thu Trang", "ban": "Tiểu ban Thư ký tổng hợp", "title": "Trưởng phòng Đối ngoại và QHCĐ", "task": 25, "bpm": 7, "eoffice": 0, "booking": 1, "volume": 33, "apps": 3}, {"user": "Nguyễn Bá Dũng", "ban": "Ban Xây dựng", "title": "Trưởng phòng", "task": 3, "bpm": 22, "eoffice": 0, "booking": 1, "volume": 26, "apps": 3}, {"user": "Phan Thị Phương Anh", "ban": "Ban Đối ngoại Pháp chế", "title": "Chuyên viên", "task": 18, "bpm": 6, "eoffice": 0, "booking": 0, "volume": 24, "apps": 2}, {"user": "Phạm Gia Lâm", "ban": "Ban Xây dựng", "title": "Chuyên viên", "task": 0, "bpm": 16, "eoffice": 0, "booking": 3, "volume": 19, "apps": 2}, {"user": "Đinh Thị Phương Nhung", "ban": "Ban Xây dựng", "title": "Chuyên viên", "task": 2, "bpm": 16, "eoffice": 0, "booking": 1, "volume": 19, "apps": 3}, {"user": "Nguyễn Hải Lâm", "ban": "Tiểu ban Thư ký tổng hợp", "title": "Phó Chánh Văn phòng, Thư ký TGĐ", "task": 19, "bpm": 0, "eoffice": 0, "booking": 0, "volume": 19, "apps": 1}, {"user": "Nguyễn Văn Đạt", "ban": "Tiểu ban Thư ký tổng hợp", "title": "Trưởng phòng Chính sách", "task": 15, "bpm": 0, "eoffice": 1, "booking": 2, "volume": 18, "apps": 3}, {"user": "Nguyễn Nhật Huy", "ban": "Ban Đối ngoại Pháp chế", "title": "Chuyên viên", "task": 6, "bpm": 9, "eoffice": 0, "booking": 0, "volume": 15, "apps": 2}, {"user": "Vũ Trường Giang", "ban": "Ban Xây dựng", "title": "Phó Trưởng phòng, GĐ BĐH XL13", "task": 0, "bpm": 13, "eoffice": 0, "booking": 2, "volume": 15, "apps": 2}, {"user": "Trần Thị Hồng Hà", "ban": "Ban Kiểm soát", "title": "Chuyên viên", "task": 7, "bpm": 4, "eoffice": 0, "booking": 2, "volume": 13, "apps": 3}, {"user": "Lê Ngọc Hùng", "ban": "Ban Xây dựng", "title": "Trưởng phòng", "task": 1, "bpm": 12, "eoffice": 0, "booking": 0, "volume": 13, "apps": 2}], "breakdown": [{"group": "levels", "label": "Chưa sử dụng", "n": 153}, {"group": "levels", "label": "1 app", "n": 59}, {"group": "levels", "label": "2 app", "n": 17}, {"group": "levels", "label": "3–4 app", "n": 15}, {"group": "task_status", "label": "Hoàn thành", "n": 121}, {"group": "task_status", "label": "Đang mở", "n": 74}, {"group": "task_status", "label": "Đang làm", "n": 2}, {"group": "task_status", "label": "Tạm dừng", "n": 1}, {"group": "task_status", "label": "Huỷ", "n": 1}, {"group": "task_flags", "label": "Quá hạn", "n": 32}, {"group": "bpm_status", "label": "Đang chạy", "n": 56}, {"group": "bpm_status", "label": "Huỷ", "n": 8}, {"group": "bpm_status", "label": "Hoàn thành", "n": 2}, {"group": "bpm_status", "label": "Từ chối", "n": 1}, {"group": "bpm_process", "label": "2. Yêu cầu vật tư", "n": 24}, {"group": "bpm_process", "label": "1. Tạm ứng chi phí văn phòng - CBNV", "n": 12}, {"group": "bpm_process", "label": "01. Cấp VPP", "n": 6}, {"group": "bpm_process", "label": "07. Báo cáo lịch trình xe", "n": 4}, {"group": "bpm_process", "label": "1.2. Tạm ứng/Thanh toán NTP/NCC Dự án CM", "n": 4}, {"group": "bpm_process", "label": "1. QT lựa chọn thầu phụ", "n": 3}, {"group": "bpm_process", "label": "Các quy trình khác", "n": 14}, {"group": "booking_type", "label": "Xe", "n": 44}, {"group": "booking_type", "label": "Phòng họp", "n": 28}, {"group": "booking_status", "label": "Đã duyệt", "n": 33}, {"group": "booking_status", "label": "Chờ duyệt", "n": 22}, {"group": "booking_status", "label": "Từ chối", "n": 12}, {"group": "booking_status", "label": "Đã huỷ", "n": 5}, {"group": "eo_type", "label": "Công văn đến", "n": 13}, {"group": "eo_type", "label": "Công văn đi", "n": 5}, {"group": "eo_action", "label": "Chuyển giai đoạn", "n": 55}, {"group": "eo_action", "label": "Xử lý", "n": 21}, {"group": "eo_action", "label": "Tạo văn bản", "n": 16}, {"group": "eo_action", "label": "Cấp số", "n": 13}, {"group": "eo_action", "label": "Giao xử lý", "n": 6}, {"group": "eo_action", "label": "Trả lại", "n": 6}, {"group": "eo_action", "label": "Khác (ký số, tạo việc, duyệt…)", "n": 10}, {"group": "records", "label": "Task", "n": 199}, {"group": "records", "label": "BPM", "n": 67}, {"group": "records", "label": "E-office", "n": 18}, {"group": "records", "label": "Booking", "n": 72}, {"group": "test_removed", "label": "Task", "n": 22}, {"group": "test_removed", "label": "BPM", "n": 77}, {"group": "test_removed", "label": "E-office", "n": 21}, {"group": "test_removed", "label": "Booking", "n": 30}]};
+  const calcs = {}, subs = [];
+  const get = id => id in calcs ? {status: 'ok', data: calcs[id]} : id in DATA ? {status: 'ok', data: DATA[id], columns: Object.keys(DATA[id][0] || {})} : {status: 'missing', data: []};
+  let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => subs.forEach(f => f()), 150); });
+  return {
+    data: get,
+    calc(id, {inputs, fn}) { calcs[id] = fn(...inputs.map(i => get(i).data)); },
+    onData(fn) { subs.push(fn); fn(); },
+    colors: ['#1e88e5', '#d97706', '#7c3aed', '#0891b2', '#0e9f6e', '#475569', '#e11d48', '#5b6678']
+  };
+})();
+</script>
+<script>
+const VN = new Intl.NumberFormat('vi-VN');
+const P1 = new Intl.NumberFormat('vi-VN', {maximumFractionDigits: 1});
+window.vxFmt = {n: v => VN.format(v), p: v => P1.format(v)};
+
+dash.calc('kpi', {
+  inputs: ['ban'],
+  title: 'User đã dùng theo app',
+  description: 'Cộng số user và số user đã dùng từng app của mọi Ban; tỷ lệ = user đã dùng / tổng user × 100.',
+  fn: (ban) => {
+    const n = r => Number(r);
+    const total = ban.reduce((s, r) => s + n(r.users), 0);
+    const sum = k => ban.reduce((s, r) => s + n(r[k]), 0);
+    const pct = a => Math.round(a / total * 1000) / 10;
+    return [
+      {app: 'Tổng', active: sum('users_active'), total, pct: pct(sum('users_active'))},
+      {app: 'Task', active: sum('users_task'), total, pct: pct(sum('users_task'))},
+      {app: 'BPM', active: sum('users_bpm'), total, pct: pct(sum('users_bpm'))},
+      {app: 'E-office', active: sum('users_eoffice'), total, pct: pct(sum('users_eoffice'))},
+      {app: 'Booking', active: sum('users_booking'), total, pct: pct(sum('users_booking'))}
+    ];
+  }
+});
+
+dash.calc('ban_pct', {
+  inputs: ['ban'],
+  title: 'Tỷ lệ user dùng app theo Ban',
+  description: 'Với mỗi Ban: số user đã dùng app / số user của Ban × 100, làm tròn 1 chữ số.',
+  fn: (ban) => ban.map(r => {
+    const u = Number(r.users);
+    const p = k => u ? Math.round(Number(r[k]) / u * 1000) / 10 : 0;
+    return {ban: r.ban, pct_active: p('users_active'), pct_task: p('users_task'), pct_bpm: p('users_bpm'), pct_eoffice: p('users_eoffice'), pct_booking: p('users_booking')};
+  })
+});
+</script>
+
+<script>
+(() => {
+  const F = window.vxFmt;
+  const APPS = {
+    'Tổng': {label: 'User đã dùng ≥1 app', rec: null, color: 'var(--core)'},
+    'Task': {label: 'Task', rec: 'Task', unit: 'công việc', color: 'var(--c-task)'},
+    'BPM': {label: 'BPM', rec: 'BPM', unit: 'phiếu', color: 'var(--c-bpm)'},
+    'E-office': {label: 'E-office', rec: 'E-office', unit: 'văn bản', color: 'var(--c-eo)'},
+    'Booking': {label: 'Booking', rec: 'Booking', unit: 'lượt đặt', color: 'var(--c-bk)'}
+  };
+  const fail = el => { el.textContent = ''; const d = document.createElement('div'); d.className = 'vx-fail'; d.innerHTML = '<i></i>'; d.append('Không tải được dữ liệu'); el.append(d); };
+
+  // build tiles once
+  document.querySelectorAll('.vx-tile').forEach(t => {
+    const app = t.dataset.app, a = APPS[app];
+    const w = app;
+    t.innerHTML = `<div class="vx-lbl"></div>
+      <div class="vx-big" data-source="kpi" data-field="active" data-where="app=${w}">—</div>
+      <div class="vx-sub"><span data-source="kpi" data-field="pct" data-where="app=${w}">—</span>% trên <span data-source="kpi" data-field="total" data-where="app=${w}">—</span> user</div>
+      <div class="vx-meter" data-source="kpi"><i></i></div>
+      <div class="vx-sub vx-rec"></div>`;
+    t.querySelector('.vx-lbl').textContent = a.label;
+    t.style.setProperty('--vx-c', a.color);
+    if (a.rec) {
+      const r = t.querySelector('.vx-rec');
+      r.innerHTML = `<span data-source="breakdown" data-field="n" data-where="group=records&amp;label=${a.rec}">—</span> ${a.unit}`;
+    }
+  });
+
+  dash.onData(() => {
+    const k = dash.data('kpi'), b = dash.data('breakdown');
+    document.querySelectorAll('.vx-tile').forEach(t => {
+      const app = t.dataset.app;
+      const big = t.querySelector('.vx-big');
+      if (k.status !== 'ok') { if (k.status === 'error') fail(big); return; }
+      
+      const r = k.data.find(x => x.app === app);
+      big.textContent = F.n(r.active);
+      t.querySelector('[data-field=pct]').textContent = F.p(r.pct);
+      t.querySelector('[data-field=total]').textContent = F.n(r.total);
+      t.querySelector('.vx-meter>i').style.width = r.pct + '%';
+      const rec = t.querySelector('.vx-rec [data-field=n]');
+      if (rec && b.status === 'ok') {
+        const row = b.data.find(x => x.group === 'records' && x.label === APPS[app].rec);
+        rec.textContent = row ? F.n(Number(row.n)) : '—';
+      }
+    });
+    // takeaway
+    const tk = document.getElementById('takeaway');
+    tk.querySelectorAll('[data-source=kpi]').forEach(el => {
+      
+      if (k.status !== 'ok') { el.textContent = '—'; return; }
+      const app = decodeURIComponent(el.dataset.where.split('=')[1]);
+      const r = k.data.find(x => x.app === app);
+      el.textContent = el.dataset.field === 'pct' ? F.p(r.pct) : F.n(r[el.dataset.field]);
+    });
+  });
+})();
+</script>
+
+<script>
+(() => {
+  const F = window.vxFmt;
+  // generic breakdown marks: [data-source=breakdown][data-field=n][data-where]
+  const fillMarks = rows => {
+    document.querySelectorAll('[data-source="breakdown"][data-field="n"][data-where]').forEach(el => {
+      if (el.closest('.vx-tile')) return;
+      const p = new URLSearchParams(el.dataset.where);
+      const r = rows && rows.find(x => x.group === p.get('group') && x.label === p.get('label'));
+      el.textContent = r ? F.n(Number(r.n)) : '—';
+    });
+  };
+  const LEVEL_COLORS = ['var(--cds-chart-muted)', null, null, null];
+  dash.onData(() => {
+    const b = dash.data('breakdown');
+    const rows = b.status === 'ok' ? b.data : null;
+    fillMarks(rows);
+    // level stack
+    const bar = document.getElementById('levelBar'), leg = document.getElementById('levelLegend');
+    bar.textContent = ''; leg.textContent = '';
+    if (rows) {
+      const lv = rows.filter(r => r.group === 'levels');
+      const tot = lv.reduce((s, r) => s + Number(r.n), 0);
+      lv.forEach((r, i) => {
+        const c = ['var(--line)', 'color-mix(in srgb, var(--core) 35%, var(--panel))', 'color-mix(in srgb, var(--core) 65%, var(--panel))', 'var(--core)'][i] || 'var(--core)';
+        const seg = document.createElement('div');
+        seg.style.flex = String(Number(r.n)); seg.style.background = c;
+        seg.setAttribute('data-where', 'group=levels&label=' + encodeURIComponent(r.label));
+        bar.append(seg);
+        const s = document.createElement('span');
+        const sw = document.createElement('i'); sw.style.background = c;
+        s.append(sw, `${r.label}: ${F.n(Number(r.n))} user (${F.p(Math.round(Number(r.n) / tot * 1000) / 10)}%)`);
+        leg.append(s);
+      });
+    }
+    // bar groups
+    document.querySelectorAll('.vx-bars[data-group]').forEach(box => {
+      box.textContent = '';
+      if (!rows) return;
+      const g = rows.filter(r => r.group === box.dataset.group);
+      const max = d3.max(g, r => Number(r.n)) || 1;
+      const color = box.dataset.color ? `var(${box.dataset.color})` : 'var(--brand)';
+      g.forEach(r => {
+        const line = document.createElement('div'); line.className = 'vx-bar';
+        const l = document.createElement('div'); l.className = 'vx-bl'; l.textContent = r.label; l.title = r.label;
+        const t = document.createElement('div'); t.className = 'vx-bt';
+        const i = document.createElement('i'); i.style.width = (Number(r.n) / max * 100) + '%'; i.style.background = color; t.append(i);
+        const v = document.createElement('div'); v.className = 'vx-bv'; v.textContent = F.n(Number(r.n));
+        line.append(l, t, v); box.append(line);
+      });
+    });
+  });
+})();
+</script>
+
+<script>
+(() => {
+  const F = window.vxFmt;
+  const box = document.getElementById('covChart');
+  const tip = document.createElement('div'); tip.className = 'vx-tip'; tip.hidden = true;
+  dash.onData(() => {
+    const d = dash.data('ban');
+    box.textContent = '';
+    if (d.status !== 'ok') { if (d.status === 'error') { box.innerHTML = '<div class="vx-fail"><i></i>Không tải được dữ liệu</div>'; } return; }
+    box.append(tip);
+    const rows = d.data.map(r => ({ban: r.ban, users: Number(r.users), active: Number(r.users_active)})).sort((a, b) => b.users - a.users || b.active - a.active);
+    const W = Math.max(320, box.clientWidth), rowH = 24, gap = 6;
+    const svg = d3.select(box).append('svg').attr('width', '100%');
+    // measure label width
+    const probe = svg.append('text').attr('font-size', 12);
+    let lw = 0; rows.forEach(r => { probe.text(r.ban); lw = Math.max(lw, probe.node().getComputedTextLength()); });
+    probe.remove();
+    lw = Math.min(lw, W * 0.42);
+    const valW = 64, left = lw + 12;
+    const H = rows.length * (rowH + gap);
+    svg.attr('viewBox', `0 0 ${W} ${H}`).attr('height', H);
+    const x = d3.scaleLinear([0, d3.max(rows, r => r.users)], [0, W - left - valW]);
+    const g = svg.selectAll('g.r').data(rows).join('g').attr('class', 'r').attr('transform', (r, i) => `translate(0,${i * (rowH + gap)})`);
+    g.append('text').attr('x', lw).attr('y', rowH / 2).attr('dy', '0.35em').attr('text-anchor', 'end').text(r => r.ban)
+      .each(function () { const t = d3.select(this); let s = t.text(); while (this.getComputedTextLength() > lw && s.length > 4) { s = s.slice(0, -2); t.text(s + '…'); } });
+    g.append('rect').attr('x', left).attr('y', 3).attr('height', rowH - 6).attr('rx', 4).attr('width', r => Math.max(2, x(r.users))).style('fill', 'var(--soft)').style('stroke', 'var(--line)');
+    g.append('rect').attr('x', left).attr('y', 3).attr('height', rowH - 6).attr('rx', 4).attr('width', r => r.active ? Math.max(3, x(r.active)) : 0).style('fill', 'var(--core)');
+    g.append('text').attr('x', r => left + x(r.users) + 6).attr('y', rowH / 2).attr('dy', '0.35em').text(r => `${F.n(r.active)}/${F.n(r.users)}`);
+    g.append('rect').attr('x', 0).attr('y', 0).attr('width', W).attr('height', rowH).style('fill', 'transparent')
+      .on('mousemove', (ev, r) => {
+        const [mx, my] = d3.pointer(ev, box);
+        tip.hidden = false; tip.innerHTML = '';
+        const h = document.createElement('div'); h.className = 'vx-tk'; h.textContent = r.ban;
+        const a = document.createElement('div'); a.textContent = `Đã dùng: ${F.n(r.active)} / ${F.n(r.users)} user (${F.p(r.users ? Math.round(r.active / r.users * 1000) / 10 : 0)}%)`;
+        tip.append(h, a);
+        const tw = tip.offsetWidth;
+        tip.style.left = Math.min(Math.max(0, mx + 12), box.clientWidth - tw) + 'px';
+        tip.style.top = (my + 12) + 'px';
+      })
+      .on('mouseleave', () => { tip.hidden = true; });
+  });
+})();
+</script>
+
+<script>
+(() => {
+  const F = window.vxFmt;
+  const table = document.getElementById('banTable');
+  const tbody = table.querySelector('tbody');
+  const search = document.getElementById('banSearch');
+  let sortKey = 'volume', sortDir = -1;
+  const PCT = ['pct_active', 'pct_task', 'pct_bpm', 'pct_eoffice', 'pct_booking'];
+  const draw = () => {
+    const d = dash.data('ban'), p = dash.data('ban_pct');
+    tbody.textContent = '';
+    if (d.status !== 'ok' || p.status !== 'ok') return;
+    const pm = new Map(p.data.map(r => [r.ban, r]));
+    const maxVol = d3.max(d.data, r => Number(r.volume)) || 1;
+    const q = search.value.trim().toLowerCase();
+    let rows = d.data.map(r => ({...r, ...pm.get(r.ban)})).filter(r => !q || r.ban.toLowerCase().includes(q));
+    rows.sort((a, b) => {
+      if (sortKey === 'ban') return sortDir * a.ban.localeCompare(b.ban, 'vi');
+      return sortDir * (Number(a[sortKey]) - Number(b[sortKey]));
+    });
+    rows.forEach(r => {
+      const tr = document.createElement('tr');
+      const cell = (v, cls) => { const td = document.createElement('td'); if (cls) td.className = cls; td.textContent = v; tr.append(td); return td; };
+      cell(r.ban);
+      cell(F.n(Number(r.users)));
+      PCT.forEach((k, i) => {
+        const v = Number(r[k]);
+        const td = cell(F.p(v) + '%', 'vx-heat');
+        const c = ['var(--core)', 'var(--c-task)', 'var(--c-bpm)', 'var(--c-eo)', 'var(--c-bk)'][i];
+        td.style.background = v > 0 ? `color-mix(in srgb, ${c} ${Math.round(8 + v * 0.6)}%, transparent)` : 'transparent';
+      });
+      ['task_created', 'task_overdue', 'bpm_created', 'bpm_actions', 'eo_actions', 'booking'].forEach(k => cell(F.n(Number(r[k]))));
+      const td = document.createElement('td'); const wrap = document.createElement('div'); wrap.className = 'vx-vol';
+      const bar = document.createElement('i'); bar.style.width = Math.round(Number(r.volume) / maxVol * 60) + 'px'; bar.style.setProperty('--vx-c', 'var(--brand)');
+      const t = document.createElement('span'); t.textContent = F.n(Number(r.volume));
+      wrap.append(bar, t); td.append(wrap); tr.append(td);
+      tbody.append(tr);
+    });
+  };
+  table.querySelectorAll('th button').forEach(btn => btn.addEventListener('click', () => {
+    const th = btn.parentElement, k = th.dataset.k;
+    if (sortKey === k) sortDir = -sortDir; else { sortKey = k; sortDir = k === 'ban' ? 1 : -1; }
+    table.querySelectorAll('th').forEach(h => h.removeAttribute('aria-sort'));
+    th.setAttribute('aria-sort', sortDir > 0 ? 'ascending' : 'descending');
+    draw();
+  }));
+  search.addEventListener('input', draw);
+  dash.onData(draw);
+})();
+</script>
+
+<script>
+(() => {
+  const F = window.vxFmt;
+  const tbody = document.querySelector('#topTable tbody');
+  dash.onData(() => {
+    const d = dash.data('top_users');
+    tbody.textContent = '';
+    if (d.status !== 'ok') return;
+    d.data.forEach(r => {
+      const tr = document.createElement('tr');
+      [r.user, r.ban, F.n(Number(r.task)), F.n(Number(r.bpm)), F.n(Number(r.eoffice)), F.n(Number(r.booking)), F.n(Number(r.apps)), F.n(Number(r.volume))].forEach((v, i) => {
+        const td = document.createElement('td'); td.textContent = v; if (i === 1) td.style.textAlign = 'left'; tr.append(td);
+      });
+      tbody.append(tr);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
