@@ -340,7 +340,7 @@ html[data-theme="dark"],html[data-theme="dark"] body{background:#0d121c}
       <p class="vx-full" id="unusedFull"></p>
     </div>
   </section>
-  <div class="vx-goto" style="margin-top:42px"><span>Làm theo:</span><a class="vx-golink" href="https://docs.google.com/spreadsheets/d/1KyS0Sv9G6blnjjhA67-ju27Cw9A2JX-8dC4Xc9Eis1I/edit" target="_blank" rel="noopener">↗ Google Sheet dữ liệu chi tiết</a><span class="vx-note" style="font-weight:400">12 tab: tổng hợp Ban, tổng hợp User, danh sách user, dữ liệu thô từng app (gồm 2 tab Project), ghi chú phương pháp; lọc cột "Kỳ quét" để xem từng kỳ.</span></div>
+  <div class="vx-goto" style="margin-top:42px"><span>Làm theo:</span><a class="vx-golink" href="https://docs.google.com/spreadsheets/d/1KyS0Sv9G6blnjjhA67-ju27Cw9A2JX-8dC4Xc9Eis1I/edit" target="_blank" rel="noopener">↗ Google Sheet dữ liệu chi tiết</a><span class="vx-note" style="font-weight:400">13 tab: tổng hợp Ban, nhân sự chưa dùng theo Ban, tổng hợp User, danh sách user, dữ liệu thô từng app (gồm 2 tab Project), ghi chú phương pháp; lọc cột "Kỳ quét" để xem từng kỳ.</span></div>
   <p class="vx-foot">Số liệu quét từ Base (task, bpm, eoffice, bookings, project) kỳ 01/11/2026 (kỳ trước: 23/10/2026, 16/10/2026), đã loại dữ liệu test. Thực hiện: Base Enterprise.</p>
 </div>
 
@@ -738,7 +738,7 @@ dash.calc('ban_pct', {
     groups.forEach(g => g.rows.sort((a, b) => (a.phong || '').localeCompare(b.phong || '', 'vi') || a.name.localeCompare(b.name, 'vi')));
     const nUn = groups.reduce((s, g) => s + g.rows.length, 0);
     lead.append(el('b', null, F.n(nUn)), ` trên ${F.n(d.data.length)} nhân sự chưa dùng app nào trong 5 app (Task, BPM, E-office, Booking, Project), thuộc `, el('b', null, F.n(groups.length)),
-      ' Ban. Ban có nhiều người chưa dùng nhất xếp trước; trong mỗi Ban sắp theo phòng rồi theo tên.');
+      ' Ban (kỳ 23/10: 106/244). Ban có nhiều người chưa dùng nhất xếp trước; trong mỗi Ban sắp theo phòng rồi theo tên. Danh sách theo từng kỳ có trong tab "Nhân sự chưa dùng" của Google Sheet.');
     groups.forEach(g => {
       const c = el('div', 'vx-uncard');
       const h = el('h3', null, g.ban); h.append(el('span', null, `${F.n(g.rows.length)}/${F.n(g.total)} chưa dùng`));
