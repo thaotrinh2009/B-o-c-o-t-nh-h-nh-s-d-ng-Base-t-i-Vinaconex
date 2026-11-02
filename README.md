@@ -21,6 +21,8 @@ Bản ghi thật trong tháng 10: Task 1.182 việc · BPM 114 phiếu · Bookin
 
 ## Các mục trên báo cáo
 
+Đầu trang luôn hiện số liệu chính (7 ô) và thanh tab; bấm tab để chuyển mục, link có dạng `#by-ban`, `#chi-xem`, `#chua-dung`… để gửi thẳng tới một tab.
+
 1. **Mức độ sử dụng:** chưa đăng nhập / chỉ đăng nhập-xem / tác nghiệp 1, 2, 3+ app.
 2. **Theo Ban:** độ phủ, tỷ lệ dùng từng app, số người chưa đăng nhập, khối lượng tác nghiệp.
 3. **Theo ứng dụng:** trạng thái công việc, phiếu, văn bản, lượt đặt, dự án.
@@ -44,6 +46,7 @@ Bản ghi thật trong tháng 10: Task 1.182 việc · BPM 114 phiếu · Bookin
 ## Lịch sử cập nhật
 
 - **02/11/2026:**
+  - Chuyển giao diện sang dạng tab, thu gọn 7 ô số liệu đầu trang.
   - Sửa định nghĩa "đã dùng": tính cả người đăng nhập để xem, theo dõi. Bản trước ghi nhầm một số lãnh đạo là "chưa dùng".
   - Tách riêng danh sách đã đăng nhập nhưng chưa tác nghiệp (mục 6) và danh sách chưa đăng nhập (mục 7).
   - Tính bình luận trên Task là tác nghiệp.

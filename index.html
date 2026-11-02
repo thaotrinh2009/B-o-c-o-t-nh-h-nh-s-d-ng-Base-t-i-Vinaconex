@@ -39,7 +39,10 @@ try{if(localStorage.getItem('vx-theme')==='dark')document.documentElement.setAtt
 .vx-lead{color:var(--muted);max-width:920px;margin:0}
 .vx-lead b{color:var(--ink);font-weight:700}
 .vx-hint{font-size:12.5px;color:var(--muted)}
-.vx-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,10.5rem),1fr));gap:12px;margin-top:6px}
+.vx-kpis{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px;margin-top:6px}
+@media (max-width:1100px){.vx-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:640px){.vx-kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.vx-tile{padding:8px 10px}.vx-tile .vx-big{font-size:22px}.vx-tile .vx-delta{font-size:11px}}
+.vx-tile .vx-delta{font-size:11.5px;line-height:1.35}
 .vx-tile{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--vx-c,var(--brand));border-radius:12px;padding:10px 14px;display:flex;flex-direction:column;gap:4px;min-width:0}
 .vx-tile .vx-lbl{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .vx-tile .vx-big{font-size:26px;line-height:1.2;font-weight:700;font-variant-numeric:tabular-nums}
@@ -51,6 +54,18 @@ try{if(localStorage.getItem('vx-theme')==='dark')document.documentElement.setAtt
 .vx-meter>i{display:block;height:100%;border-radius:99px;background:var(--vx-c,var(--brand))}
 /* sections */
 .vx-sec{display:flex;flex-direction:column;gap:12px;margin-top:42px}
+.vx-tabs{position:sticky;top:0;z-index:20;margin-top:20px;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line)}
+.vx-tablist{display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin;padding:2px}
+.vx-tab{flex:none;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--panel);color:var(--muted);font:600 13.5px var(--sans);padding:8px 14px;border-radius:99px;cursor:pointer;white-space:nowrap}
+.vx-tab:hover{color:var(--ink);border-color:var(--brand)}
+.vx-tab[aria-selected="true"]{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.vx-tab b{font-variant-numeric:tabular-nums;font-size:12px;padding:0 7px;border-radius:99px;background:var(--soft);color:var(--ink)}
+.vx-tab[aria-selected="true"] b{background:rgba(255,255,255,.22);color:var(--on-brand)}
+.vx-tab:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.vx-sec[hidden]{display:none!important}
+.vx-sec.vx-tabbed{margin-top:22px}
+@media print{.vx-tabs{display:none}}
+
 .vx h2{display:flex;align-items:center;gap:12px;font-size:25px;line-height:1.3;font-weight:800;margin:0;text-wrap:balance}
 .vx .sn{flex:none;width:34px;height:34px;border-radius:10px;background:var(--brand);color:var(--on-brand);display:inline-flex;align-items:center;justify-content:center;font-size:16px;font-weight:800}
 .vx h3{font-size:15px;font-weight:700;margin:0}
@@ -218,6 +233,7 @@ html[data-theme="dark"],html[data-theme="dark"] body{background:#0d121c}
     </div>
     <div class="vx-hint">Kỳ quét 01/11/2026 · so sánh với kỳ 23/10/2026 · đã loại tài khoản test và dữ liệu thực hành trong các buổi đào tạo · <a href="#chi-xem">Đã đăng nhập, chưa tác nghiệp →</a> · <a href="#chua-dung">Chưa đăng nhập →</a> · mẫu số 253 user thực (không tính tài khoản test, tài khoản Base, tài khoản đã khoá; có 21 tài khoản mới, chủ yếu chỉ huy trưởng/BĐH công trường). Kỳ 23/10 chưa loại dữ liệu thực hành đào tạo, nên mức tăng thực tế của BPM, E-office, Booking cao hơn số hiển thị.</div>
   </header>
+  <nav class="vx-tabs" aria-label="Các mục báo cáo"><div class="vx-tablist" role="tablist" id="vxTabs"></div></nav>
 
   <section class="vx-sec" id="levels">
     <h2><span class="sn">1</span>Mức độ sử dụng của người dùng</h2>
@@ -437,7 +453,7 @@ dash.calc('ban_pct', {
   const F = window.vxFmt;
   const APPS = {
     'Tổng': {label: 'Đã dùng Base', rec: null, color: 'var(--core)'},
-    'Tác nghiệp': {label: 'Có tác nghiệp ≥1 app', rec: null, color: 'color-mix(in srgb, var(--core) 60%, var(--ink))'},
+    'Tác nghiệp': {label: 'Có tác nghiệp', rec: null, color: 'color-mix(in srgb, var(--core) 60%, var(--ink))'},
     'Task': {label: 'Task', rec: 'Task', unit: 'công việc', color: 'var(--c-task)'},
     'BPM': {label: 'BPM', rec: 'BPM', unit: 'phiếu', color: 'var(--c-bpm)'},
     'E-office': {label: 'E-office', rec: 'E-office', unit: 'văn bản', color: 'var(--c-eo)'},
@@ -452,7 +468,7 @@ dash.calc('ban_pct', {
     const w = app;
     t.innerHTML = `<div class="vx-lbl"></div>
       <div class="vx-big" data-source="kpi" data-field="active" data-where="app=${w}">—</div>
-      <div class="vx-sub"><span data-source="kpi" data-field="pct" data-where="app=${w}">—</span>% trên <span data-source="kpi" data-field="total" data-where="app=${w}">—</span> user</div>
+      <div class="vx-sub"><span data-source="kpi" data-field="pct" data-where="app=${w}">—</span>% / <span data-source="kpi" data-field="total" data-where="app=${w}">—</span></div>
       <div class="vx-meter" data-source="kpi"><i></i></div>
       <div class="vx-sub vx-rec"></div>
       <div class="vx-delta"></div>`;
@@ -486,9 +502,9 @@ dash.calc('ban_pct', {
       dl.textContent = ''; dl.className = 'vx-delta';
       if (pr) {
         const dd = r.active - pr.active;
-        dl.textContent = `${dd > 0 ? '▲ +' : dd < 0 ? '▼ ' : '= '}${F.n(dd)} user so với 23/10 (${F.n(pr.active)})`;
+        dl.textContent = `${dd > 0 ? '▲ +' : dd < 0 ? '▼ ' : '= '}${F.n(dd)} so với 23/10`; dl.title = `Kỳ 23/10: ${F.n(pr.active)}`;
         if (dd > 0) dl.classList.add('up');
-      } else { dl.textContent = 'Mới đưa vào từ kỳ 01/11'; }
+      } else { dl.textContent = 'Mới từ kỳ 01/11'; }
     });
     // takeaway
     const tk = document.getElementById('takeaway');
@@ -865,6 +881,51 @@ dash.calc('ban_pct', {
 })();
 </script>
 
+<script>
+(() => {
+  const TABS = [
+    ['levels', 'Tổng quan'],
+    ['by-ban', 'Theo Ban'],
+    ['by-app', 'Theo ứng dụng'],
+    ['top-users', 'Tích cực nhất'],
+    ['staff', 'Chi tiết nhân sự'],
+    ['chi-xem', 'Đăng nhập, chưa tác nghiệp', s => s.filter(r => r.level === 'view').length],
+    ['chua-dung', 'Chưa đăng nhập', s => s.filter(r => r.level === 'never').length]
+  ];
+  const list = document.getElementById('vxTabs');
+  const secs = TABS.map(([id]) => document.getElementById(id));
+  const btns = TABS.map(([id, label], i) => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'vx-tab'; b.id = 'tab-' + id;
+    b.setAttribute('role', 'tab'); b.setAttribute('aria-controls', id); b.textContent = label;
+    secs[i].classList.add('vx-tabbed'); secs[i].setAttribute('role', 'tabpanel'); secs[i].setAttribute('aria-labelledby', b.id);
+    b.addEventListener('click', () => show(id, true));
+    b.addEventListener('keydown', e => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      const j = (i + (e.key === 'ArrowRight' ? 1 : -1) + TABS.length) % TABS.length; show(TABS[j][0], true); btns[j].focus();
+    });
+    list.append(b); return b;
+  });
+  const show = (id, push) => {
+    if (!TABS.some(t => t[0] === id)) id = TABS[0][0];
+    TABS.forEach(([tid], i) => { const on = tid === id; secs[i].hidden = !on; btns[i].setAttribute('aria-selected', String(on)); btns[i].tabIndex = on ? 0 : -1; });
+    btns[TABS.findIndex(t => t[0] === id)].scrollIntoView({block: 'nearest', inline: 'nearest'});
+    if (push && location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
+    window.dispatchEvent(new Event('resize'));
+    const nav = document.querySelector('.vx-tabs');
+    if (push && nav.getBoundingClientRect().top > 0 === false) nav.scrollIntoView({block: 'start'});
+  };
+  dash.onData(() => {
+    const d = dash.data('staff'); if (d.status !== 'ok') return;
+    TABS.forEach(([id, label, cnt], i) => { if (!cnt) return; btns[i].textContent = label + ' '; const n = document.createElement('b'); n.textContent = window.vxFmt.n(cnt(d.data)); btns[i].append(n); });
+  });
+  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    const id = a.getAttribute('href').slice(1); if (!TABS.some(t => t[0] === id)) return;
+    e.preventDefault(); show(id, true); document.querySelector('.vx-tabs').scrollIntoView({block: 'start', behavior: 'smooth'});
+  }));
+  window.addEventListener('hashchange', () => show(location.hash.slice(1), false));
+  show(location.hash.slice(1), false);
+})();
+</script>
 <script>
 (() => {
   const root = document.documentElement, btn = document.getElementById('themeBtn'), lbl = btn.querySelector('span');
