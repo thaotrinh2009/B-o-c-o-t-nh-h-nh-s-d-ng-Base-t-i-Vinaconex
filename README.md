@@ -3,21 +3,21 @@
 Báo cáo tình hình sử dụng 5 app **Task, BPM, E-office, Booking, Project** theo người dùng và theo Ban/đơn vị tại Vinaconex.
 
 - Trang báo cáo: `index.html` (GitHub Pages)
-- Kỳ hiện tại: **01/11/2026**, so sánh với kỳ 23/10/2026. Trạng thái đăng nhập cập nhật ngày 02/11/2026.
+- Kỳ hiện tại: **05/11/2026**, so sánh với kỳ 01/11/2026. Trạng thái đăng nhập cập nhật ngày 05/11/2026.
 - Dữ liệu chi tiết từng bản ghi nằm trong Google Sheet đi kèm (không đưa lên repo vì có thông tin cá nhân).
 
-## Số liệu chính kỳ 01/11/2026
+## Số liệu chính kỳ 05/11/2026
 
-| Chỉ số | 23/10 | 01/11 |
-|---|---|---|
-| Nhân sự có tài khoản (đã loại tài khoản test) | 244 | 253 |
-| Đã dùng Base (gồm chỉ đăng nhập/xem) | 208 (85,2%) | **230 (90,9%)** |
-| – trong đó có tác nghiệp ≥1 app | 138 (56,6%) | **185 (73,1%)** |
-| – chỉ đăng nhập/xem, chưa tác nghiệp | 70 | 45 |
-| Chưa đăng nhập lần nào | 36 | 22 (+1 tài khoản trùng) |
+| Chỉ số | 23/10 | 01/11 | 05/11 |
+|---|---|---|---|
+| Nhân sự có tài khoản (đã loại tài khoản test) | 244 | 253 | 252 |
+| Đã dùng Base (gồm chỉ đăng nhập/xem) | 208 (85,2%) | 230 (90,9%) | **233 (92,5%)** |
+| – trong đó có tác nghiệp ≥1 app | 138 (56,6%) | 185 (73,1%) | **211 (83,7%)** |
+| – chỉ đăng nhập/xem, chưa tác nghiệp | 70 | 45 | 22 |
+| Chưa đăng nhập lần nào | 36 | 22 (+1 tài khoản trùng) | 18 (+1 tài khoản trùng) |
 
-Theo app (người có tác nghiệp, kỳ 01/11): Task 159 · BPM 63 · Booking 56 · E-office 23 · Project 15.
-Bản ghi thật trong tháng 10: Task 1.182 việc · BPM 114 phiếu · Booking 154 lượt · E-office 54 văn bản · Project 74 việc.
+Theo app (người có tác nghiệp, kỳ 05/11): Task 171 · BPM 89 · Booking 62 · Project 29 · E-office 28 (kỳ 01/11: 159 · 63 · 56 · 15 · 23).
+Bản ghi thật từ 01/10 đến 05/11: Task 1.560 việc · BPM 258 phiếu · Booking 185 lượt · Project 114 việc · E-office 68 văn bản.
 
 ## Các mục trên báo cáo
 
@@ -45,6 +45,7 @@ Bản ghi thật trong tháng 10: Task 1.182 việc · BPM 114 phiếu · Bookin
 
 ## Lịch sử cập nhật
 
+- **05/11/2026:** quét kỳ mới. BPM tăng mạnh (114 → 258 phiếu, 63 → 89 người) nhờ báo cáo lịch trình xe và yêu cầu vật tư; Project mở rộng sang nhiều Ban (15 → 29 người). Tài khoản "Bùi Hoàng Bảo Bảo" đã bị khoá nên không còn tính.
 - **02/11/2026:**
   - Chuyển giao diện sang dạng tab, thu gọn 7 ô số liệu đầu trang.
   - Sửa định nghĩa "đã dùng": tính cả người đăng nhập để xem, theo dõi. Bản trước ghi nhầm một số lãnh đạo là "chưa dùng".
@@ -58,5 +59,5 @@ Bản ghi thật trong tháng 10: Task 1.182 việc · BPM 114 phiếu · Bookin
 
 - **Tài khoản trùng:** Ngọ Văn Thành có 2 tài khoản; một tài khoản đã dùng, một chưa đăng nhập.
 - **Trùng tên khác Ban:** Vũ Anh Tuấn (Ban Xây dựng / Ban Đầu tư) và Nguyễn Minh Thắng (Ban Đầu tư / Văn phòng TCT).
-- **Tài khoản có thể tạo nhầm:** "Bùi Hoàng Bảo Bảo" và "Trần Tuấn Nghĩa Nghĩa".
+- **Tài khoản có thể tạo nhầm:** "Trần Tuấn Nghĩa Nghĩa" (tài khoản "Bùi Hoàng Bảo Bảo" đã được khoá sau 01/11).
 - **Chưa thuộc Ban nào:** 21 tài khoản mới (chủ yếu chỉ huy trưởng/BĐH công trường) cần gán vào nhóm người dùng.
